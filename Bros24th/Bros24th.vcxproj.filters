@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Artwork">
+      <UniqueIdentifier>{240464db-5d47-4f48-90a6-a3777a87cb24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Music">
+      <UniqueIdentifier>{0be4dade-6387-4db4-902f-f28c9bf63e4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -21,6 +27,66 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LetterA.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="LetterH.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="LetterP.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="LetterSmallH.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="LetterSmallT.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="LetterY.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Number2.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Number4.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Theatrical.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sounds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PictureWindow.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="PictureDancer.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="PictureDoor.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="PicturePostman.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
+    <ClInclude Include="PictureDuck.h">
+      <Filter>Header Files\Artwork</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -28,6 +94,51 @@
     </ClCompile>
     <ClCompile Include="Bros24th.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Instruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logging.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicOpening.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicHappySlow.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicHappyFast.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="Theatrical.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundStart.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicProkofiev3.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicTension.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundDie.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundWin.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundJump.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicToccata.cpp">
+      <Filter>Source Files\Music</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
