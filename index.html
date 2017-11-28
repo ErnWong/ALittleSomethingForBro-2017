@@ -1,0 +1,119 @@
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Home</title>
+
+<link rel="stylesheet" type="text/css" href="css/fixedsys-excelsior.css" />
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="https://gitcdn.xyz/repo/pi0/clippyjs/master/assets/clippy.css">
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/crt-flicker.css" />
+
+<script src="libv86.js"></script>
+<script>
+"use strict";
+
+window.onload = function()
+{
+    var emulator = window.emulator = new V86Starter({
+        memory_size: 512 * 1024 * 1024,
+        vga_memory_size: 32 * 1024 * 1024,
+        screen_container: document.getElementById("screen_container"),
+        bios: {
+            url: "seabios.bin",
+        },
+        vga_bios: {
+            url: "vgabios.bin",
+        },
+        hda: {
+            "url": "https://ernestmainsize.x10.bz/permanent/2017/bros24th/hdd.img",
+            "size": 300 * 1024 * 1024,
+        },
+        autostart: true,
+    });
+  document.getElementsByClassName("crt-container")[0].onclick = function() {
+    emulator.lock_mouse();
+  }
+}
+</script>
+
+<body>
+
+<input type="checkbox" id="crt-switch" checked>
+<label for="crt-switch" class="crt-switch-label"><i class="fa fa-power-off" aria-hidden="true"></i></label>
+
+<button id="reset-btn">Restart</button>
+
+<script>
+document.getElementById("reset-btn").onclick = function() {
+  emulator.restart();
+}
+</script>
+
+<div class="crt-container">
+  <div class="crt-screen">
+    <div id="screen_container">
+        <div class="screen_text" style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+        <canvas class="screen_graphics" style="display: none"></canvas>
+    </div>
+  </div>
+  <div class="crt-overlay">ANALOG</div>
+</div>
+
+<script src="https://unpkg.com/jquery@3.2.1"></script>
+<script src="https://unpkg.com/clippyjs@latest"></script>
+
+<script type="text/javascript">
+clippy.load("Clippy", function(agent){
+  agent.show();
+  agent.moveTo(1000,500);
+  agent.play("Greeting");
+  agent.speak("Hi there. The computer is loading up. It's gonna take a while, so lets talk about your mission for today while we wait.");
+  agent.speak("Your ultimate task is to search for two things: a very special message and a very special web address. Turn on your speakers for an enhanced experience. Good luck!");
+
+  var mode = "none";
+  function agentCheck() {
+    if (!document.getElementById("crt-switch").checked) {
+      if (mode !== "crt-switchoff") {
+        mode = "crt-switchoff";
+        agent.play("GetAttention");
+        agent.speak("That's the power button for the monitor you silly bum bum.");
+      }
+    }
+    else if (mode === "crt-switchoff" && document.getElementById("crt-switch").checked) {
+      mode = "crt-switchon";
+      agent.play("Congratulate");
+      agent.speak("There we go.");
+    }
+    else if (document
+      .getElementById("screen_container")
+      .innerText
+      .toLowerCase()
+      .indexOf("you need to restart your computer") !== -1) {
+      if (mode !== "restart-needed") {
+        mode = "restart-needed";
+        agent.play("GetAttention");
+        agent.speak("Looks like your computer crashed! Don't worry, that's perfectly real. Just press the restart button right below the screen.")
+      }
+    }
+    else if (document
+      .getElementById("screen_container")
+      .innerText
+      .toLowerCase()
+      .indexOf("microsoft windows 98 startup menu") !== -1) {
+      if (mode !== "startup-menu") {
+        mode = "startup-menu";
+        agent.play("GestureRight");
+        agent.speak("You should select option \"5. Step-by-step confirmation\", and press [enter] when the computer asks for it.")
+      }
+    }
+    else {
+      mode = "none";
+    }
+    setTimeout(agentCheck, 500);
+  }
+  agentCheck();
+});
+</script>
+
+</body>
