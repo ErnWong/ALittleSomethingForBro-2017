@@ -9,12 +9,21 @@
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <link rel="stylesheet" type="text/css" href="css/crt-flicker.css" />
 
+<script src="https://unpkg.com/jquery@3.2.1"></script>
+<script src="https://unpkg.com/clippyjs@latest"></script>
 <script src="libv86.js"></script>
 <script>
 "use strict";
 
 window.onload = function()
 {
+  document.getElementById("hd-start").onclick = function() {
+    var file_input = document.getElementById("hd-image");
+    if (!file_input.files.length) {
+      alert("Hold your horses. You need to upload an image first and wait for it to complete its thing before you can press the start button.");
+      return;
+    }
+    document.getElementById("hd-upload-dialog").style.display = "none";
     var emulator = window.emulator = new V86Starter({
         memory_size: 512 * 1024 * 1024,
         vga_memory_size: 32 * 1024 * 1024,
@@ -26,19 +35,76 @@ window.onload = function()
             url: "vgabios.bin",
         },
         hda: {
-            "url": "https://cors-anywhere.herokuapp.com/http://ernestmainsite.x10.bz/permanent/2017/bros24th/hdd.img",
-            "size": 300 * 1024 * 1024,
-            "async": true
+            buffer: file_input.files[0]
         },
         autostart: true,
     });
-  document.getElementsByClassName("crt-container")[0].onclick = function() {
-    emulator.lock_mouse();
+    document.getElementsByClassName("crt-container")[0].onclick = function() {
+      emulator.lock_mouse();
+    }
+    clippy.load("Clippy", function(agent){
+      agent.show();
+      agent.moveTo(1000,500);
+      agent.play("Greeting");
+      agent.speak("Hi there. The computer is loading up. It's gonna take a while, so lets talk about your mission for today while we wait.");
+      agent.speak("Your ultimate task is to search for two things: a very special message and a very special web address. Turn on your speakers for an enhanced experience. Good luck!");
+
+      var mode = "none";
+      function agentCheck() {
+        if (!document.getElementById("crt-switch").checked) {
+          if (mode !== "crt-switchoff") {
+            mode = "crt-switchoff";
+            agent.play("GetAttention");
+            agent.speak("That's the power button for the monitor you silly bum bum.");
+          }
+        }
+        else if (mode === "crt-switchoff" && document.getElementById("crt-switch").checked) {
+          mode = "crt-switchon";
+          agent.play("Congratulate");
+          agent.speak("There we go.");
+        }
+        else if (document
+          .getElementById("screen_container")
+          .innerText
+          .toLowerCase()
+          .indexOf("you need to restart your computer") !== -1) {
+          if (mode !== "restart-needed") {
+            mode = "restart-needed";
+            agent.play("GetAttention");
+            agent.speak("Looks like your computer crashed! Don't worry, that's perfectly real. Just press the restart button right below the screen.")
+          }
+        }
+        else if (document
+          .getElementById("screen_container")
+          .innerText
+          .toLowerCase()
+          .indexOf("microsoft windows 98 startup menu") !== -1) {
+          if (mode !== "startup-menu") {
+            mode = "startup-menu";
+            agent.play("GestureRight");
+            agent.speak("You should select option \"5. Step-by-step confirmation\", and press [enter] when the computer asks for it.")
+          }
+        }
+        else {
+          mode = "none";
+        }
+        setTimeout(agentCheck, 500);
+      }
+      agentCheck();
+    });
   }
 }
 </script>
 
 <body>
+
+<div id="hd-upload-dialog">
+  <div>
+    <p id="hd-text">Upload the hard disk image here.</p><br />
+    <input type="file" id="hd-image"><br /><br />
+    <button id="hd-start">Begin Adventure</button>
+  </div>
+</div>
 
 <input type="checkbox" id="crt-switch" checked>
 <label for="crt-switch" class="crt-switch-label"><i class="fa fa-power-off" aria-hidden="true"></i></label>
@@ -60,61 +126,5 @@ document.getElementById("reset-btn").onclick = function() {
   </div>
   <div class="crt-overlay">ANALOG</div>
 </div>
-
-<script src="https://unpkg.com/jquery@3.2.1"></script>
-<script src="https://unpkg.com/clippyjs@latest"></script>
-
-<script type="text/javascript">
-clippy.load("Clippy", function(agent){
-  agent.show();
-  agent.moveTo(1000,500);
-  agent.play("Greeting");
-  agent.speak("Hi there. The computer is loading up. It's gonna take a while, so lets talk about your mission for today while we wait.");
-  agent.speak("Your ultimate task is to search for two things: a very special message and a very special web address. Turn on your speakers for an enhanced experience. Good luck!");
-
-  var mode = "none";
-  function agentCheck() {
-    if (!document.getElementById("crt-switch").checked) {
-      if (mode !== "crt-switchoff") {
-        mode = "crt-switchoff";
-        agent.play("GetAttention");
-        agent.speak("That's the power button for the monitor you silly bum bum.");
-      }
-    }
-    else if (mode === "crt-switchoff" && document.getElementById("crt-switch").checked) {
-      mode = "crt-switchon";
-      agent.play("Congratulate");
-      agent.speak("There we go.");
-    }
-    else if (document
-      .getElementById("screen_container")
-      .innerText
-      .toLowerCase()
-      .indexOf("you need to restart your computer") !== -1) {
-      if (mode !== "restart-needed") {
-        mode = "restart-needed";
-        agent.play("GetAttention");
-        agent.speak("Looks like your computer crashed! Don't worry, that's perfectly real. Just press the restart button right below the screen.")
-      }
-    }
-    else if (document
-      .getElementById("screen_container")
-      .innerText
-      .toLowerCase()
-      .indexOf("microsoft windows 98 startup menu") !== -1) {
-      if (mode !== "startup-menu") {
-        mode = "startup-menu";
-        agent.play("GestureRight");
-        agent.speak("You should select option \"5. Step-by-step confirmation\", and press [enter] when the computer asks for it.")
-      }
-    }
-    else {
-      mode = "none";
-    }
-    setTimeout(agentCheck, 500);
-  }
-  agentCheck();
-});
-</script>
 
 </body>
